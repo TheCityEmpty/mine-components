@@ -1,0 +1,56 @@
+.box_wrap {
+	padding: 15px;
+	background: rgba(255, 255, 255, 0.8);
+	border: 1px solid #f5f7fa;
+	box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+	border-radius: 4px;
+}
+.ivu-switch-isTop.ivu-switch-checked {
+	border-color: #ed4014;
+	background-color: #ed4014;
+}
+.ivu-switch-artStatus.ivu-switch-checked {
+	border-color: #19be6b;
+	background-color: #19be6b;
+}
+
+.flex-between {
+	display: flex;
+  align-items: center;
+}
+
+.wl-tooltip {
+	cursor: pointer;
+	position: relative;
+}
+.wl-tooltip:hover::after,.wl-tooltip:hover::before {
+	display: block;
+}
+.wl-tooltip::before {
+	content: '';
+	position: absolute;
+	z-index: 1;
+	width: 0;
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-bottom: 5px solid #212121;
+	bottom: -15px;
+	left: 10px;
+	display: none;
+}
+
+.wl-tooltip::after {
+	content: attr(data-content);
+	width: max-content;
+	position: absolute;
+	bottom: -45px;
+	padding: 7px;
+	left: 0;
+	background: #212121;
+	border-radius: 3px;
+	color: #fff;
+	display: inline-block;
+	font-size: 12px !important;
+	display: none;
+	line-height: normal !important;
+}
