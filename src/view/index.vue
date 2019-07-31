@@ -1,5 +1,10 @@
 <template>
   <div class="home">
+    <Header>
+      <img src="@_img/logo.svg" alt="" style="width: 40px;">
+      <span class="text">This is a component library.</span>
+    </Header>
+    <leftSide></leftSide>
     <div class="content">
       <router-view class="container" />
     </div>
@@ -7,9 +12,14 @@
 </template>
 
 <script>
-
+import leftSide from '@_com/leftSide/leftSide.vue'
+import Header from '@_com/header/header.vue'
 export default {
   name: 'App',
+  components: {
+    leftSide,
+    Header
+  },
   data () {
     return {
     }
@@ -29,6 +39,8 @@ export default {
     }
     .content {
       position: relative;
+      margin-top: 20px;
+      background: #fff;
     }
   }
 </style>

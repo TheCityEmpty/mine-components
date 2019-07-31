@@ -54,3 +54,13 @@
 	display: none;
 	line-height: normal !important;
 }
+
+
+/** compoents style start */
+@keyframes rotating{
+	from{transform:rotate(0)}
+	to{transform:rotate(360deg)}
+}
+.rotaing {
+	animation: rotating 1.2s linear infinite;
+}

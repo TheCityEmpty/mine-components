@@ -3,8 +3,14 @@ import index from '@/view/index.vue'
 export default [
   {
     path: '/',
-    redirect: '/index',
+    redirect: '/introduce',
     component: index,
-    children: []
+    children: [
+      {
+        path: 'introduce',
+        name: 'introduce',
+        component: () => import('@/view/introduce/introduce.vue')
+      }
+    ]
   }
 ]
