@@ -27,7 +27,7 @@ module.exports = {
   // webpack 配置
   configureWebpack: config => {
     // 设置入口文件
-    config.entry.app = ['babel-polyfill', './src/main.js']
+    config.entry.app = ['babel-polyfill', './examples/main.js']
     // 设置将所有css 文件打包成一个
     if (process.env.NODE_ENV === 'production') {
       config.optimization = {
@@ -42,13 +42,21 @@ module.exports = {
           }
         }
       }
+      // config.externals = {
+      //   vue: {
+      //     root: 'Vue',
+      //     commonjs: 'vue',
+      //     commonjs2: 'vue',
+      //     amd: 'vue'
+      //   }
+      // }
     }
   },
   chainWebpack: config => {
     config.resolve.alias
-      .set('@', resolve('src')) // key,value自行定义，比如.set('@@', resolve('src/components'))
-      .set('@_com', resolve('src/components'))
-      .set('@_img', resolve('src/assets/images'))
+      .set('@', resolve('examples')) // key,value自行定义，比如.set('@@', resolve('src/components'))
+      .set('@_com', resolve('examples/components'))
+      .set('@_img', resolve('examples/assets/images'))
   },
   productionSourceMap: true,
   devServer: {

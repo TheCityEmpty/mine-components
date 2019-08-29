@@ -1,8 +1,18 @@
 {
-  "name": "lxh-admin",
-  "version": "1.0.0",
-  "author": "",
+  "name": "lxhcomponents",
+  "title": "lxhcomponents",
+  "version": "1.0.4",
+  "author": "TheCityEmpty",
   "private": false,
+  "license": "MIT",
+  "main": "src/index.js",
+  "files": [
+    "src"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TheCityEmpty/lxhcomponents"
+  },
   "scripts": {
     "start": "npm run dev",
     "dev": "vue-cli-service serve --open",
@@ -11,19 +21,16 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "vue": "2.6.10",
-    "vue-axios": "^2.1.4",
-    "vue-quill-editor": "^3.0.6",
-    "vue-router": "^3.0.2",
-    "vuex": "^3.1.0"
+    "vue-router": "^3.0.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.0-beta.10",
     "@vue/cli-plugin-eslint": "^3.0.0split-beta.10",
     "@vue/cli-service": "^3.0.0-beta.10",
     "@vue/eslint-config-standard": "^3.0.0-beta.10",
+    "babel-plugin-component": "^1.1.1",
     "babel-plugin-import": "^1.8.0",
     "babel-plugin-jsx-v-model": "^2.0.3",
     "babel-polyfill": "^6.26.0",
