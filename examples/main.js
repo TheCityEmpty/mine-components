@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import store from './store'
 
 /**
  * @description 引入 全局css  混入，config 等
@@ -9,11 +8,11 @@ import store from './store'
 import '@/theme/index.scss'
 import '@/assets/css/base.css'
 import '@/mixins'
+import '../src/styles/base.css'
 // import config from '@/config'
-import { http } from './libs/axios'
 
 // 自定义插件引入
-import mp from './index'
+import mp from '../src'
 Vue.use(mp)
 // const calendar = require('./components/Calendar/index').default
 // console.log(calendar)
@@ -21,7 +20,6 @@ Vue.use(mp)
 
 Vue.config.productionTip = false
 // Vue.prototype.$config = config
-Vue.prototype.$http = http // 全局注册，使用方法为:this.$http
 
 // Vue.config.errorHandler = function (err, vm, info) {
 //   console.info('error---', err)
@@ -33,7 +31,6 @@ Vue.prototype.$http = http // 全局注册，使用方法为:this.$http
 var vm = new Vue({
   el: '#app',
   router,
-  store,
   render: h => h(App)
 })
 

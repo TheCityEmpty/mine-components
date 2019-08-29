@@ -17,7 +17,6 @@
 </template>
 
 <script>
-import Loading from '@/components/Loading'
 import { getRandom } from '@/libs/util'
 import { setTimeout } from 'timers'
 export default {
@@ -37,34 +36,11 @@ export default {
   },
   methods: {
     changeBody () {
-      let sevrice = Loading.service({
-        alertText: '数据加载中...',
-        isHasLine: true
-      })
-      setTimeout(() => {
-        console.log(sevrice)
-        sevrice.close()
-      }, 1500)
     },
     change () {
       setInterval(() => {
         this.widthPX = getRandom(100, 600)
       }, 800)
-
-      // let sevrice = Loading.service({
-      //   target: this.$refs.aa,
-      //   alertText: '数据加载中...',
-      //   isHasLine: true,
-      //   lineBg: '#0f0'
-      // })
-      // // this.isLoading = true
-      // // this.isLoading2 = true
-      // setTimeout(() => {
-      //   sevrice.close()
-      // }, 150000)
-      // this.$nextTick(() => {
-
-      // })
     }
   }
 }
