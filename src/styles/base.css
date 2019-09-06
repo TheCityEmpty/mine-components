@@ -1,4 +1,4 @@
-.my-btn {
+.me-btn {
   display: inline-block;
   line-height: 1;
   white-space: nowrap;
@@ -19,7 +19,7 @@
   border-radius: 3px;
 }
 
-.my-btn:hover {
+.me-btn:hover {
   color: #409eff;
   border-color: #c6e2ff;
   background-color: #ecf5ff;

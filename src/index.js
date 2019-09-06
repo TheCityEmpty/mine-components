@@ -7,7 +7,7 @@ const components = [
 
 const install = (Vue, opts = {}) => {
   Vue.use(Loading.directive)
-  Vue.prototype.$myLoading = Loading.service
+  Vue.prototype.$mineLoading = Loading.service
 
   components.forEach(c => {
     // 使用c.name 则每个组件都必须 有name 属性， 以name 属性 作为组件名
@@ -20,7 +20,7 @@ if (typeof window !== 'undefined' && window.vue) {
 }
 
 export default {
-  version: '1.0.2',
+  version: '1.0.0',
   install,
   Calendar,
   Loading

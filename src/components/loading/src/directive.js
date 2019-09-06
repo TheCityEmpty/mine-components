@@ -8,11 +8,11 @@ import { getRandom } from '../../../utils/tools'
  * @param { v-myLoading } 指令名 接受Boolean 值
  * @param { fullscreen }  'v-myLoading指令中 的修饰符 全屏加载
  * @param { line } 'v-myLoading指令中 的修饰符 加上加载线条 修饰符可连用
- * @param { my-loading-text } 标签上的自定义属性 显示在加载图标下方的加载文案
- * @param { my-loading-bg } 标签上的自定义属性 遮罩背景色
- * @param { my-loading-icon } 标签上的自定义属性 自定义加载图标类名
- * @param { my-line-bg } 加载线的自定义背景颜色
- * @param { my-line-height } 加载线的自定义高度
+ * @param { me-loading-text } 标签上的自定义属性 显示在加载图标下方的加载文案
+ * @param { me-loading-bg } 标签上的自定义属性 遮罩背景色
+ * @param { me-loading-icon } 标签上的自定义属性 自定义加载图标类名
+ * @param { me-line-bg } 加载线的自定义背景颜色
+ * @param { me-line-height } 加载线的自定义高度
  */
 
 const Mask = Vue.extend(Loading)
@@ -87,31 +87,31 @@ export default {
     }
 
     // 注册指令
-    Vue.directive('myLoading', {
+    Vue.directive('mineLoading', {
       bind (el, binding, vNode) {
-        const alertText = el.getAttribute('my-loading-text')
-        const bg = el.getAttribute('my-loading-bg')
-        const icon = el.getAttribute('my-loading-icon')
+        const alertText = el.getAttribute('me-loading-text')
+        const bg = el.getAttribute('me-loading-bg')
+        const icon = el.getAttribute('me-loading-icon')
         // vue 实例
         const vm = vNode.context
         const mask = new Mask({
           el: document.createElement('div'),
           data: {
-            alertText: vm && vm['my-loading-text'] || alertText,
-            bg: vm && vm['my-loading-bg'] || bg,
-            icon: vm && vm['my-loading-icon'] || icon
+            alertText: vm && vm['me-loading-text'] || alertText,
+            bg: vm && vm['me-loading-bg'] || bg,
+            icon: vm && vm['me-loading-icon'] || icon
           }
         })
         el.instance = mask
         el.mask = mask.$el
         // 存在加载线条
         if (binding.modifiers.line) {
-          const bg = el.getAttribute('my-line-bg')
-          const height = el.getAttribute('my-line-height')
+          const bg = el.getAttribute('me-line-bg')
+          const height = el.getAttribute('me-line-height')
           let virLineDom = document.createElement('div')
-          virLineDom.className = 'my-line-style'
-          virLineDom.style.backgroundColor = vm && vm['my-line-bg'] || bg
-          virLineDom.style.height = vm && vm['my-line-height'] || height
+          virLineDom.className = 'me-line-style'
+          virLineDom.style.backgroundColor = vm && vm['me-line-bg'] || bg
+          virLineDom.style.height = vm && vm['me-line-height'] || height
           el.lineDom = virLineDom
           el.w = 0
         }

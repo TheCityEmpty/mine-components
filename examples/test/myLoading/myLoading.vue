@@ -10,7 +10,7 @@
       测试进度条
     </div>
 
-    <div class="test-content sadas" v-myLoading.line="isLoading">
+    <div class="test-content sadas" v-mineLoading.line="isLoading">
       爱神的箭雷克萨建档立卡就撒懒得看
     </div>
 	</div>

@@ -4,7 +4,7 @@ import service from './src/index'
 export default {
   install (Vue) {
     Vue.use(directive)
-    Vue.prototype.$myLoading = service
+    Vue.prototype.$mineLoading = service
   },
   directive,
   service

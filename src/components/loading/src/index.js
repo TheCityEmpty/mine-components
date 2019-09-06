@@ -110,7 +110,7 @@ const LoadingObj = (options = {}) => {
 
   if (options.isHasLine) {
     let virLineDom = document.createElement('div')
-    virLineDom.className = 'my-line-style'
+    virLineDom.className = 'me-line-style'
     virLineDom.style.backgroundColor = options.lineBg || ''
     virLineDom.style.height = options.lineHeight || ''
     options.lineDom = virLineDom

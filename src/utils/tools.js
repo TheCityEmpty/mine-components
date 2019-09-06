@@ -11,7 +11,7 @@ export const getRandom = (start, end) => {
  * @desc 补0
  * @param { Number } n 传入的数
  */
-export function handleValue (n) {
+export const handleValue = (n) => {
   return n < 10 ? `0${n}` : n
 }
 /**
