@@ -17,7 +17,6 @@
 </template>
 
 <script>
-import { getRandom } from '@/libs/util'
 import { setTimeout } from 'timers'
 export default {
   data () {
@@ -32,15 +31,32 @@ export default {
     this.isLoading = true
     setTimeout(() => {
       this.isLoading = false
-    }, 1500000)
+    }, 1500)
   },
   methods: {
     changeBody () {
+      let loading1 = this.$mineLoading({
+        target: 'body',
+        isHasLine: true
+      })
+      setTimeout(() => {
+        console.log()
+        loading1.close()
+      }, 1500)
     },
     change () {
-      setInterval(() => {
-        this.widthPX = getRandom(100, 600)
-      }, 800)
+      let loading2 = this.$mineLoading({
+        target: this.$refs.aa,
+        isHasLine: true
+      })
+      setTimeout(() => {
+        console.log()
+        loading2.close()
+      }, 1500)
+      // this.isLoading = true
+      // setTimeout(() => {
+      //   this.isLoading = false
+      // }, 1500)
     }
   }
 }

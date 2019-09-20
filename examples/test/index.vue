@@ -2,7 +2,7 @@
   <div class="home">
     <Header>
       <img src="@_img/logo.svg" alt="" style="width: 40px;">
-      <span class="text">This is a component library.</span>
+      <span class="text">mine-components</span>
     </Header>
     <leftSide></leftSide>
     <div class="content">

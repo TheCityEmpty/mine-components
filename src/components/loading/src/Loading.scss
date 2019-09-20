@@ -72,6 +72,12 @@
   left: 0;
   transition: width .3s;
  }
+ .me-fullscrren {
+   z-index: 999;
+ }
+ .me-fullscrren-line {
+   z-index: 1000;
+ }
  .alertText {
   margin-top: 15px;
   letter-spacing: 1px;

@@ -72,7 +72,6 @@ const LoadingObj = (options = {}) => {
     isBeing.instance.recreated(options)
     return
   }
-
   let instance = new LoadingConstructor({
     el: document.createElement('div'),
     data: options
@@ -88,7 +87,7 @@ const LoadingObj = (options = {}) => {
     this.timer = setInterval(() => {
       const step = (stepNum - 1) * Math.random() + 1
       this.w += step
-      this.lineDom.style.width = this.w + '%'
+      this.lineDom && (this.lineDom.style.width = this.w + '%')
       if (this.w >= getRandom(60, 90)) {
         this.stopTranstion(this)
       }
@@ -101,7 +100,7 @@ const LoadingObj = (options = {}) => {
 
   options.endTransiton = function (callBack) {
     this.timer && this.stopTranstion()
-    this.lineDom.style.width = '100%'
+    this.lineDom && (this.lineDom.style.width = '100%')
     this.w = 100
     setTimeout(() => {
       callBack && callBack()
@@ -110,7 +109,7 @@ const LoadingObj = (options = {}) => {
 
   if (options.isHasLine) {
     let virLineDom = document.createElement('div')
-    virLineDom.className = 'me-line-style'
+    virLineDom.className = 'me-line-style me-fullscrren-line'
     virLineDom.style.backgroundColor = options.lineBg || ''
     virLineDom.style.height = options.lineHeight || ''
     options.lineDom = virLineDom
@@ -118,6 +117,8 @@ const LoadingObj = (options = {}) => {
     parent.appendChild(options.lineDom)
     options.transitionStep()
   }
+  if (options.fullscreen) instance.$el.className = 'me-fullscrren Loading-box'
+
   parent.appendChild(instance.$el)
 
   taskList.push({

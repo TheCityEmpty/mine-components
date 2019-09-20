@@ -2,8 +2,7 @@
 	<div class="left-side">
 		<div class="leftSide-scroll">
 			<ul>
-				<li v-for="(item, index) in menu" :key="index" class="list">
-					<img :src="item.src" style="width: 20px;" class="icon" v-if="item.src" />
+				<li v-for="(item, index) in menu" :key="index" :class="{ 'list' :true, 'list-blod': item.weight }">
 					<span @click="gotoPage(item.to)">{{ item.title }}</span>
 				</li>
 			</ul>
@@ -18,16 +17,14 @@ export default {
       menu: [
         {
           title: '介绍',
-          src: require('@_img/left-icon-1.svg')
+          weight: true
         },
         {
-          title: '进度条',
-          src: require('@_img/com-1.svg'),
+          title: 'Loading 进度条',
           to: '/myLoading'
         },
         {
-          title: '日历',
-          src: require('@_img/com-2.svg'),
+          title: 'Calendar 日历',
           to: '/myCalendar'
         }
       ]
@@ -35,6 +32,7 @@ export default {
   },
   methods: {
     gotoPage (to) {
+      if (!to) return
       this.$router.push(to)
     }
   }
@@ -49,9 +47,10 @@ export default {
 	left: 0;
 	box-shadow: 2px 0 4px 0 rgba(0, 0, 0, 0.05);
 	min-height: 100vh;
-	background-color: #202d40;
-	color: #fff;
-	width: 150px;
+	background-color: #fff;
+	color: #444;;
+  width: 150px;
+  font-size: 14px;
 	transition: width 0.1s ease-in-out;
 	z-index: 9;
 	user-select: none;
@@ -61,7 +60,12 @@ export default {
 		position: relative;
 		margin-right: -16%;
 		height: calc(100vh - 65px);
-	}
+  }
+  .list-blod span{
+    font-weight: 600;
+    font-size: 16px;
+    color: #333;
+  }
 	.list {
 		height: 30px;
 		line-height: 30px;

@@ -15,6 +15,11 @@ export default [
         path: '/myCalendar',
         name: 'myCalendar',
         component: () => import('@/test/myCalendar/myCalendar.vue')
+      },
+      {
+        path: '/mySVG',
+        name: 'mySVG',
+        component: () => import('@/test/mySVG/mySVG.vue')
       }
     ]
   }

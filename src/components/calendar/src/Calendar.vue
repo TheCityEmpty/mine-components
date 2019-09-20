@@ -3,18 +3,27 @@
     <div class="me-calendar-currentYM">
       <div class="me-calendar-current-year">
         <button class="me-btn" @click="openYears">{{ currentY }}</button>
-        <ul @click="stopClose($event)" class="me-calendar-fix-year" v-show="isShowYear">
+        <ul @click="stopClose($event)" class="me-calendar-fix-year" ref="fix-year">
           <li
             v-for="item in yearsArr"
-            @click="setFixedClassAction(item)"
-            :class="setFixedClass(currentY,item)"
+            @click="cutSelectYear(item)"
+            :class="setFixedClass(currentY, item)"
             :key="item">
             {{ item }}
           </li>
         </ul>
       </div>
       <div class="me-calendar-current-month">
-        <button class="me-btn ">{{ currentM }}</button>
+        <button class="me-btn" @click="openMonths">{{ currentM }}</button>
+        <ul @click="stopClose($event)" class="me-calendar-fix-month" ref="fix-month">
+          <li
+            v-for="item in monthsArr"
+            @click="cutSelectMonth(item)"
+            :class="setFixedClass(currentM, item)"
+            :key="item">
+            {{ item }}
+          </li>
+        </ul>
       </div>
     </div>
     <div class="me-calendar-header">
@@ -35,11 +44,12 @@
         <div
           v-for="(val, key) in item"
           :class="calendarCols(val)"
+          :style="'content' in $scopedSlots ? '' : 'padding: 5px;'"
           :key="key">
-          <template v-if="!isHasSlot">
+          <slot :options='val' name="content" v-if="'content' in $scopedSlots"></slot>
+          <template v-else>
             {{ val.value }}
           </template>
-          <slot :oper='val' name="content"></slot>
         </div>
       </div>
     </div>
@@ -100,9 +110,10 @@ export default {
     return {
       currentY: null,
       currentM: null,
-      isHasSlot: false,
       yearsArr: [],
-      isShowYear: false
+      isShowYear: false,
+      monthsArr: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      isShowMonth: false
     }
   },
 
@@ -132,24 +143,30 @@ export default {
   created () {
     this.currentY = this.year
     this.currentM = this.month
-    // this.openYears()
   },
 
   mounted () {
-    this.isHasSlot = 'content' in this.$scopedSlots
-    document.addEventListener('click', (e) => {
-      console.log(this.isShowYear)
-      if (this.isShowYear) {
-        this.isShowYear = false
-      }
-    })
+    document.addEventListener('click', this.closePop)
+    document.addEventListener('click', this.closeMonthsPop)
+  },
+
+  destroyed () {
+    document.removeEventListener('click', this.closePop)
+    document.removeEventListener('click', this.closeMonthsPop)
   },
 
   methods: {
-    setFixedClassAction (item) {
+    cutSelectMonth (item) {
+      this.currentM = item
+      this.closeMonthsPop(() => {
+        this.cutMonth(this.currentY, item)
+      })
+    },
+    cutSelectYear (item) {
       this.currentY = item
-      this.isShowYear = false
-      this.cutMonth(item, this.currentM)
+      this.closePop(() => {
+        this.cutMonth(item, this.currentM)
+      })
     },
     setFixedClass (itemVal = {}, tagVal = {}) {
       return {
@@ -157,10 +174,23 @@ export default {
         'me-calendar-fix-item_checked': String(itemVal) === String(tagVal)
       }
     },
-    openYears () {
+    closePop (callBack) {
+      if (this.isShowYear) {
+        this.$refs['fix-year'].style = 'opacity: 0.3;'
+        this.isShowYear = false
+      }
+      if (typeof callBack === 'function') {
+        callBack && callBack()
+      }
+    },
+    openPop () {
       setTimeout(() => {
+        this.$refs['fix-year'].style = 'transform: rotate3d(1,0,0, 0);opacity: 1;'
         this.isShowYear = true
       }, 0)
+    },
+    openYears () {
+      this.isShowYear ? this.closePop() : this.openPop()
       if (this.yearsArr.length) return
       const currentY = String(this.currentY)
       const prefixNum = currentY.slice(0, currentY.length - 1)
@@ -171,13 +201,31 @@ export default {
     stopClose (e) {
       e.stopPropagation()
     },
+    openMonths () {
+      this.isShowMonth ? this.closeMonthsPop() : this.openMonthsPop()
+    },
+    closeMonthsPop (callBack) {
+      if (this.isShowMonth) {
+        this.$refs['fix-month'].style = 'opacity: 0.3;'
+        this.isShowMonth = false
+      }
+      if (typeof callBack === 'function') {
+        callBack && callBack()
+      }
+    },
+    openMonthsPop () {
+      setTimeout(() => {
+        this.$refs['fix-month'].style = 'transform: rotate3d(1,0,0, 0);opacity: 1;'
+        this.isShowMonth = true
+      }, 0)
+    },
     // 根据后台数据重新组合
     combination (dateArr, apiData) {
       dateArr.forEach((item) => {
         item.forEach((b) => {
           apiData.forEach((c, index) => {
-            // 后台数据中 的时间 字符串
-            if (c.timeStr === b.dateStr) {
+            // 后台数据中 的时间 字符串 dateStr
+            if (c.dateStr === b.dateStr) {
               b.oper = c
             }
           })
@@ -259,7 +307,6 @@ export default {
     display: flex;
     .me-calendar-cols {
       flex: 1;
-      padding: 5px;
       color: #333;
       box-sizing: border-box;
     }
@@ -275,8 +322,14 @@ export default {
   .me-calendar-current-month {
     display: inline-block;
     position: relative;
-    .me-btn:after {
+    .me-btn {
+      position: relative;
+      padding-right: 30px;
+    }
+    .me-btn:after,
+    .me-btn:before {
       content: '';
+      position: absolute;
       display: inline-block;
       width: 0;
       height: 0;
@@ -285,14 +338,26 @@ export default {
       border-top: 7px solid #606266;
       border-bottom: 7px solid transparent;
       vertical-align: middle;
-      margin-left: 5px;
-      margin-top: 4px;
       border-radius: 2px;
+      right: 10px;
+      top: 50%;
+      margin-top: -3px;
     }
-    .me-btn:hover:after {
+    .me-btn:after {
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 4px solid #fff;
+      right: 11px;
+    }
+    .me-btn:hover:before {
         border-top:7px solid #409eff;
     }
-    .me-calendar-fix-year {
+    .me-calendar-fix-year,
+    .me-calendar-fix-month {
+      transition: all 0.4s ease-in-out;
+      transform: rotate3d(1,0,0, -90deg);
+      opacity: 0.3;
+      transform-origin: 50% 0%;
       border: 1px solid #dcdfe6;
       padding: 10px;
       background-color: #fff;
